@@ -1,0 +1,9 @@
+USE DATABASE labaie_db;
+
+DROP TABLE IF EXISTS stock;
+
+CREATE TABLE IF NOT EXISTS stock (
+    id INT PRIMARY KEY,
+    price FLOAT NOT NULL DEFAULT 0,
+    discount 
+);
