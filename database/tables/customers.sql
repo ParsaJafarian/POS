@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS customers (
     email VARCHAR(100) NOT NULL UNIQUE ,
     discount DECIMAL(2,2) NOT NULL DEFAULT 0,
     CONSTRAINT valid_discount CHECK (discount >= 0 AND discount <= 1),
-    CONSTRAINT valid_phone CHECK (phone REGEXP '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'),
-    CONSTRAINT valid_email CHECK (email REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+    CONSTRAINT valid_customer_phone CHECK (phone REGEXP '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'),
+    CONSTRAINT valid_customer_email CHECK (email REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
 );

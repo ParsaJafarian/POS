@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS employees (
     email VARCHAR(100),
     password VARCHAR(100) NOT NULL,
     is_admin BOOLEAN NOT NULL DEFAULT 0,
-    CONSTRAINT valid_phone CHECK (phone REGEXP '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'),
-    CONSTRAINT valid_email CHECK (email REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+    CONSTRAINT valid_employee_phone CHECK (phone REGEXP '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'),
+    CONSTRAINT valid_employee_email CHECK (email REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
 );

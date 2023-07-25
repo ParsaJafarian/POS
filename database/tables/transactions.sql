@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS transactions (
     date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     employee_id INT NOT NULL,
     customer_id INT,
-    FOREIGN KEY (employee_id) REFERENCES (employees.id),
-    FOREIGN KEY (customer_id) REFERENCES (customers.id)
+    FOREIGN KEY (employee_id) REFERENCES employees(id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
