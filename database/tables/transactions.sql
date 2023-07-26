@@ -1,10 +1,14 @@
 DROP TABLE IF EXISTS transactions;
 
-CREATE TABLE IF NOT EXISTS transactions (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-    employee_id INT NOT NULL,
-    customer_id INT,
-    FOREIGN KEY (employee_id) REFERENCES employees(id),
-    FOREIGN KEY (customer_id) REFERENCES customers(id)
-);
+CREATE TABLE
+    IF NOT EXISTS transactions (
+        id VARCHAR(255) NOT NULL UNIQUE,
+        number INT PRIMARY KEY AUTO_INCREMENT,
+        date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+        employee_num INT NOT NULL,
+        customer_num INT,
+        FOREIGN KEY (employee_num) REFERENCES employees(number),
+        FOREIGN KEY (customer_num) REFERENCES customers(number)
+    );
+
+ALTER TABLE transactions AUTO_INCREMENT = 10000000;

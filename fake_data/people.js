@@ -15,7 +15,7 @@ const email = () => faker.internet.email();
 const phone = () => faker.phone.phoneNumber();
 const discount = () => Math.random();
 const password = () => faker.internet.password();
-const isAdmin = () => Math.random() > 0.5;
+const isAdmin = () => Math.random() > 0.8;
 
 const createPerson = () => {
     return [
@@ -58,6 +58,6 @@ const insertEmployees = (n) => {
         if (err) throw err;
         console.log(res);
     });
-}
+};
 
 module.exports = {insertCustomers, insertEmployees};

@@ -9,5 +9,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    database: ''
+    database: 'hbc'
 })
+
+app.get('/', (req, res) => {
+    res.send("home");
+});
+
+app.listen(3000, () => {
+    console.log("Server is running on port 3000");
+});
