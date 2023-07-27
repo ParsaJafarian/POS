@@ -6,10 +6,9 @@ CREATE TABLE
         number INT PRIMARY KEY AUTO_INCREMENT,
         first_name VARCHAR(50) NOT NULL,
         last_name VARCHAR(50) NOT NULL,
-        phone CHAR(12) NOT NULL,
-        email VARCHAR(100),
-        password VARCHAR(100) NOT NULL,
-        is_admin BOOLEAN NOT NULL DEFAULT 0,
+        phone CHAR(12) NOT NULL UNIQUE,
+        email VARCHAR(100) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL,
         CONSTRAINT valid_employee_phone CHECK (
             phone REGEXP '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'
         ),
