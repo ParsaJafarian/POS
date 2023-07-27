@@ -6,7 +6,7 @@ CREATE TABLE
         amount DECIMAL(2, 2) NOT NULL DEFAULT 0,
         CONSTRAINT valid_amount CHECK (
             amount >= 0
-            AND amount <= 1
+            AND amount < 1
         ),
         product_num INT NOT NULL,
         FOREIGN KEY (product_num) REFERENCES products(number)

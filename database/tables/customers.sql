@@ -11,7 +11,7 @@ CREATE TABLE
         discount DECIMAL(2, 2) NOT NULL DEFAULT 0,
         CONSTRAINT valid_discount CHECK (
             discount >= 0
-            AND discount <= 1
+            AND discount < 1
         ),
         CONSTRAINT valid_customer_phone CHECK (
             phone REGEXP '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'
