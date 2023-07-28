@@ -2,11 +2,11 @@ const { faker } = require('@faker-js/faker');
 const mysql = require('mysql2');
 const { v4: uuid } = require('uuid');
 
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     database: 'hbc'
-});
+}).promise();
 
 const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'];
 const types = ['T-Shirt', 'Polo', 'Sweatshirt', 'Hoodie', 'Jacket', 'Pants', 'Shorts', 'Hat', 'underwear', 'Other'];
@@ -26,15 +26,12 @@ const createProduct = () => {
     ]
 }
 
-const insertProducts = (n) => {
+const insertProducts = async (n) => {
     const products = [];
     for (let i = 0; i < n; i++)
         products.push(createProduct());
     const q = 'INSERT INTO products (id, price, type, size, is_final) VALUES ?';
-    connection.query(q, [products], (err, res) => {
-        if (err) throw err;
-        console.log(res);
-    });
-}
+    await pool.query(q, [products]);
+};
 
 module.exports = insertProducts;

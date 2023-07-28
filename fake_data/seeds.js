@@ -1,25 +1,21 @@
 const { insertCustomers, insertEmployees } = require('./people');
 const insertProducts = require('./products');
 const mysql = require('mysql2');
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     database: 'hbc'
-});
+}).promise();
 
-const deleteAndInsert = (q, f,n) => {
-    connection.query(q, (err, res) => {
-        if (err) throw err;
-        console.log(res);
-        f(n);
-    });
-};
-
-const insertFakeData = () => {
-    deleteAndInsert('DELETE FROM customers', insertCustomers, 30);
-    deleteAndInsert('DELETE FROM employees', insertEmployees, 10);
-    deleteAndInsert('DELETE FROM products', insertProducts, 30);
+const insertFakeData = async () => {
+    await pool.query('DELETE FROM customers');
+    await pool.query('DELETE FROM employees');
+    await pool.query('DELETE FROM products');
+    await insertCustomers(30);
+    await insertEmployees(10);
+    await insertProducts(30);
+    console.log("Fake data inserted");
+    pool.end();
 };
 
 insertFakeData();
-connection.end();
