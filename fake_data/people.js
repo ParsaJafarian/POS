@@ -1,11 +1,6 @@
 const { faker } = require('@faker-js/faker');
-const mysql = require('mysql2');
 const { v4: uuid } = require('uuid');
-const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    database: 'hbc'
-}).promise();
+const pool = require('../config/mysql');
 
 const id = () => uuid();
 const firstName = () => faker.person.firstName();

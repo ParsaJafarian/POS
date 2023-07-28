@@ -1,12 +1,6 @@
 const { faker } = require('@faker-js/faker');
-const mysql = require('mysql2');
 const { v4: uuid } = require('uuid');
-
-const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    database: 'hbc'
-}).promise();
+const pool = require('../config/mysql');
 
 const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'];
 const types = ['T-Shirt', 'Polo', 'Sweatshirt', 'Hoodie', 'Jacket', 'Pants', 'Shorts', 'Hat', 'underwear', 'Other'];

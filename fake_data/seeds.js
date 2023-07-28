@@ -1,11 +1,6 @@
 const { insertCustomers, insertEmployees } = require('./people');
 const insertProducts = require('./products');
-const mysql = require('mysql2');
-const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    database: 'hbc'
-}).promise();
+const pool = require('../config/mysql');
 
 const insertFakeData = async () => {
     await pool.query('DELETE FROM customers');

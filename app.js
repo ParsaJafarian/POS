@@ -1,12 +1,8 @@
-const mysql = require('mysql2');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'hbc'
-});
+const pool = require('./config/mysql');
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
