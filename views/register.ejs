@@ -1,0 +1,27 @@
+<% layout('./layouts/boilerplate') %>
+    <form action="/register" method="POST">
+        <h1>
+            <%= message %>
+        </h1>
+        <div>
+            <input type="text" name="first_name" placeholder="first name" />
+        </div>
+        <div>
+            <input type="text" name="last_name" placeholder="last name" />
+        </div>
+        <div>
+            <input type="text" name="email" placeholder="email" />
+        </div>
+        <div>
+            <input type="text" name="phone" placeholder="phone" />
+        </div>
+        <div>
+            <input type="text" name="number" placeholder="employee number" />
+        </div>
+        <div>
+            <input type="password" name="password" placeholder="password" />
+        </div>
+        <div>
+            <button type="submit">Register</button>
+        </div>
+    </form>

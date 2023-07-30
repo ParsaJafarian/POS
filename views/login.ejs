@@ -1,0 +1,13 @@
+<% layout('./layouts/boilerplate') %>
+    <form action="/login" method="POST">
+        <h1><%= message %></h1>
+        <div>
+            <input type="text" name="enumber" placeholder="employee number" />
+        </div>
+        <div>
+            <input type="password" name="password" placeholder="password" />
+        </div>
+        <div>
+            <button type="submit">Log in</button>
+        </div>
+    </form>
