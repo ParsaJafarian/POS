@@ -10,26 +10,51 @@
                     <% } %>
     </div>
 
-    <form action="/register" method="POST">
+    <form class="needs-validation row g-3" action="/register" method="POST" novalidate>
         <div>
-            <input type="text" name="first_name" placeholder="first name" />
+            <label for="first_name"></label>
+            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" required />
         </div>
         <div>
-            <input type="text" name="last_name" placeholder="last name" />
+            <label for="last_name"></label>
+            <input type="text" name="last_name" placeholder="last name" id="last_name" required />
         </div>
         <div>
-            <input type="text" name="email" placeholder="email" />
+            <label for="email"></label>
+            <input type="text" class="form-control" name="email" placeholder="email" id="email" required />
         </div>
         <div>
-            <input type="text" name="phone" placeholder="phone" />
+            <label for="phone"></label>
+            <input type="text" class="form-control" name="phone" placeholder="phone" required />
         </div>
         <div>
-            <input type="text" name="number" placeholder="employee number" />
+            <input type="text" class="form-control" name="number" placeholder="employee number" required />
         </div>
         <div>
-            <input type="password" name="password" placeholder="password" />
+            <input type="password" class="form-control" name="password" placeholder="password" required />
         </div>
         <div>
             <button type="submit">Register</button>
         </div>
     </form>
+
+    <script>
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
