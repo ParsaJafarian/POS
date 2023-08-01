@@ -1,8 +1,16 @@
 <% layout('./layouts/boilerplate') %>
+    <div class="flash-messages">
+        <% if (messages && messages.length> 0) { %>
+            <% messages.forEach((message)=> { %>
+                <div class="flash-message">
+                    <%= message %>
+                </div>
+                <% }); %>
+                    <% } %>
+    </div>
     <form action="/login" method="POST">
-        <h1><%= message %></h1>
         <div>
-            <input type="text" name="enumber" placeholder="employee number" />
+            <input type="text" name="number" placeholder="employee number" />
         </div>
         <div>
             <input type="password" name="password" placeholder="password" />
