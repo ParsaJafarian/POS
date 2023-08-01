@@ -16,5 +16,3 @@ const printEmployee = async (number) => {
     const employee = await getEmployee(number);
     console.log(employee);
 };
-
-printEmployee(number);
