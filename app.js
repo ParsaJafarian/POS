@@ -10,6 +10,7 @@ const path = require('path');
 require('dotenv').config();
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
+const profileRouter = require('./routes/profile');
 const cookieParser = require('cookie-parser');
 
 app.use(session({
@@ -37,13 +38,10 @@ app.set('views', path.join(__dirname, 'views'));
 //Configure routes
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
+app.use('/profile', profileRouter);
 
 app.get('/', (req, res) => {
     res.render('home');
-});
-
-app.get('/profile', (req, res) => {
-    res.send('Profile page');
 });
 
 app.listen(process.env.PORT, () => {
