@@ -1,34 +1,49 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
-const configRoutes = require('./config/configRoutes');
-const configViews = require('./config/configViews');
-const configurePassport = require('./config/configPassport');   
+const passport = require('passport');
+const configurePassport = require('./config/configPassport');
+const ejsMate = require('ejs-mate');
+const path = require('path');
+require('dotenv').config();
+const loginRouter = require('./routes/login');
+const registerRouter = require('./routes/register');
+const cookieParser = require('cookie-parser');
 
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: true }
+    cookie: { maxAge: 60000 }
 }));
+app.use(cookieParser('keyboard cat'));
 app.use(flash());
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-configRoutes(app);
-configViews(app);
-configurePassport(app, passport);
+//Configure passport 
+app.use(passport.initialize());
+app.use(passport.session());
+configurePassport(passport);
+
+//Configure ejs
+app.engine('ejs', ejsMate);
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+//Configure routes
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
 
 app.get('/', (req, res) => {
     res.render('home');
 });
 
-app.get('/failure', (req, res) => {
-    res.send("Failure");
+app.get('/profile', (req, res) => {
+    res.send('Profile page');
 });
 
 app.listen(process.env.PORT, () => {
