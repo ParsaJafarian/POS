@@ -40,12 +40,10 @@ const deserialize = (passport) => {
 };
 
 //Configure passport with an express app
-const configPassport = (app, passport) => {
+const configPassport = (passport) => {
     useStrategy(passport);
     serialize(passport);
     deserialize(passport);
-    app.use(passport.initialize());
-    app.use(passport.session());
 };
 
 module.exports = configPassport;
