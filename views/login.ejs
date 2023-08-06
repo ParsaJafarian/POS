@@ -1,5 +1,5 @@
 <% layout('./layouts/boilerplate') %>
-    <div class="flash-messages text-danger">
+    <div class="container flash-messages text-danger bg-danger-subtle w-25">
         <% if (messages && messages.length> 0) { %>
             <% messages.forEach((message)=> { %>
                 <div class="flash-message">
@@ -8,14 +8,27 @@
                 <% }); %>
                     <% } %>
     </div>
-    <form action="/login" method="POST">
-        <div>
-            <input type="text" name="number" placeholder="employee number" />
-        </div>
-        <div>
-            <input type="password" name="password" placeholder="password" />
-        </div>
-        <div>
-            <button type="submit">Log in</button>
-        </div>
-    </form>
+    <div class="container d-flex justify-content-center align-items-center w-25" id="form-container">
+        <form class="needs-validation row g-3" action="/login" method="POST" novalidate>
+            <div class="border-bottom pb-1">
+                <h1 class="text-center">Log in</h1>
+            </div>
+            <div class="col-md-12">
+                <input class="form-control" type="text" name="number" placeholder="employee number" required />
+                <div class="invalid-feedback">
+                    Please provide a valid employee number.
+                </div>
+            </div>
+            <div class="col-md-12">
+                <input class="form-control" type="password" name="password" placeholder="password" required/>
+                <div class="invalid-feedback">
+                    Please provide a valid password.
+                </div>
+            </div>
+            <div class="border-bottom pb-1">
+                <button class="btn btn-primary" type="submit">Log in</button>
+            </div>
+            <span>Don't have an account? <a href="../register">Register here!</a></span>
+        </form>
+    </div>
+    <%- include('./partials/validation') %>

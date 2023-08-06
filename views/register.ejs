@@ -9,52 +9,58 @@
                 <% }); %>
                     <% } %>
     </div>
+    <div class="container border d-flex justify-content-center align-items-center w-25 mt-3" id="form-container">
+        <form class="needs-validation row g-3" action="/register" method="POST" novalidate>
+            <div class="border-bottom pb-1">
+                <h1 class="text-center">Register</h1>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name"
+                    required />
+                <div class="invalid-feedback">
+                    Please provide a valid first name.
+                </div>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="last_name" placeholder="last name" id="last_name"
+                    required />
+                <div class="invalid-feedback">
+                    Please provide a valid last name.
+                </div>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="number" placeholder="employee number" required />
+                <div class="invalid-feedback">
+                    Please provide a valid employee number.
+                </div>
+            </div>
+            <div class="col-md-8">
+                <input type="text" class="form-control" name="email" placeholder="email" id="email" required />
+                <div class="invalid-feedback">
+                    Please provide a valid email.
+                </div>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="phone" placeholder="phone" required />
+                <div class="invalid-feedback">
+                    Please provide a valid phone number.
+                </div>
+            </div>
+            <div class="col-md-6">
+                <input type="password" class="form-control" name="password" placeholder="password" required />
+                <div class="invalid-feedback">
+                    Please provide a valid password.
+                </div>
+            </div>
+            <div class="col-md-6">
+                <input type="password" class="form-control" name="confirm_password" placeholder="confirm password"
+                    required />
+                <div class="invalid-feedback">
+                    Please confirm a valid password.
+                </div>
+            </div>
+            <button class="btn btn-primary col-4 offset-4" type="submit">Register</button>
+        </form>
 
-    <form class="needs-validation row g-3" action="/register" method="POST" novalidate>
-        <div>
-            <label for="first_name"></label>
-            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" required />
-        </div>
-        <div>
-            <label for="last_name"></label>
-            <input type="text" name="last_name" placeholder="last name" id="last_name" required />
-        </div>
-        <div>
-            <label for="email"></label>
-            <input type="text" class="form-control" name="email" placeholder="email" id="email" required />
-        </div>
-        <div>
-            <label for="phone"></label>
-            <input type="text" class="form-control" name="phone" placeholder="phone" required />
-        </div>
-        <div>
-            <input type="text" class="form-control" name="number" placeholder="employee number" required />
-        </div>
-        <div>
-            <input type="password" class="form-control" name="password" placeholder="password" required />
-        </div>
-        <div>
-            <button type="submit">Register</button>
-        </div>
-    </form>
-
-    <script>
-        (() => {
-            'use strict'
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const forms = document.querySelectorAll('.needs-validation')
-
-            // Loop over them and prevent submission
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-            })
-        })()
-    </script>
+    </div>
+    <%- include('./partials/validation') %>
