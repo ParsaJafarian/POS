@@ -10,7 +10,6 @@ const insertFakeData = async () => {
     await insertEmployees(10);
     await insertProducts(30);
     console.log("Fake data inserted");
-    db.end();
 };
 
 insertFakeData();
