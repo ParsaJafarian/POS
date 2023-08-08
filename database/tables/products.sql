@@ -8,9 +8,7 @@ CREATE TABLE
         type VARCHAR(100) NOT NULL,
         size CHAR(3) NOT NULL DEFAULT 'M',
         brand VARCHAR(100),
-        trans_num INT,
-        FOREIGN KEY (trans_num) REFERENCES transactions(number),
-        is_final BOOLEAN NOT NULL DEFAULT 0,
+        available BOOLEAN NOT NULL DEFAULT 0,
         CONSTRAINT valid_price CHECK (price >= 0),
         CONSTRAINT valid_size CHECK (
             size IN (
