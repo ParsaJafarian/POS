@@ -6,6 +6,8 @@ const ol = document.querySelector('#products');
 const flashMessages = document.querySelector('.flash-messages');
 
 button.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
     axios.get('/products/' + input.value) // Use relative URL
         .then((res) => {
             const li = document.createElement('li');
@@ -13,7 +15,15 @@ button.addEventListener('click', (e) => {
             ol.appendChild(li);
         })
         .catch((err) => {
-            console.log(err);
+            if (err.response) {
+                const { message = 'Empty Input' } = err.response.data;
+                const flashMessage = document.createElement('div');
+                flashMessage.classList.add('flash-message');
+                flashMessage.textContent = message;
+                flashMessages.appendChild(flashMessage);
+            } else {
+                console.log('An error occurred:', err.message);
+            }
         });
 });
 
