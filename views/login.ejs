@@ -8,7 +8,7 @@
                 <% }); %>
                     <% } %>
     </div>
-    <div class="container d-flex justify-content-center align-items-center w-25" id="form-container">
+    <div class="container border d-flex justify-content-center align-items-center w-25 mt-1" id="form-container">
         <form class="needs-validation row g-3" action="/login" method="POST" novalidate>
             <div class="border-bottom pb-1">
                 <h1 class="text-center">Log in</h1>
@@ -28,7 +28,7 @@
             <div class="border-bottom pb-1">
                 <button class="btn btn-primary" type="submit">Log in</button>
             </div>
-            <span>Don't have an account? <a href="../register">Register here!</a></span>
+            <span class="mb-1">Don't have an account? <a href="../register">Register here!</a></span>
         </form>
     </div>
     <%- include('./partials/validation') %>

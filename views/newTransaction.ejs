@@ -1,0 +1,27 @@
+<% layout('./layouts/boilerplate') %>
+    <div class="container flash-messages text-danger bg-danger-subtle w-25">
+        <% if (messages && messages.length> 0) { %>
+            <% messages.forEach((message)=> { %>
+                <div class="flash-message">
+                    <%= message %>
+                </div>
+                <% }); %>
+                    <% } %>
+    </div>
+    <div class="container d-flex justify-content-center align-products-center w-50 ">
+        <div class="row g-3 border d-flex justify-content-center w-50">
+            <h1 class="text-center">New Sale</h1>
+            <form class="input-group w-auto">
+                <input type="number" name="number" class="form-control" id="productInput"
+                    placeholder="Enter Product Num" />
+                <button class="btn btn-primary" type="button" id="productBtn" data-mdb-ripple-color="dark">
+                    Buy
+                </button>
+            </form>
+            <div>
+                <ol id="products"></ol>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="/scripts/productsList.js"></script>

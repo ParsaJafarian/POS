@@ -1,20 +1,13 @@
 const db = require('./config/db');
-const q = "SELECT * FROM employees WHERE number = ?";
-const number = 21252044;
-const getEmployee = async (number) => {
-    try {
-        const results = await db.query(q, [number]);
-        const employee = results[0][0];
-        return employee;
-    } catch (err) {
-        console.log(err);
-        return null;
-    }
-};
+const q = 'SELECT * FROM products WHERE number = ?';
 
-const printEmployee = async (number) => {
-    const employee = await getEmployee(number);
-    console.log(employee);
-};
+db.query(q, [])
+.then((res) => {
+    const product = res[0][0];
+    if(product) console.log(product);
+    else console.log('Product not found');
+})
+.catch((err) => {
+    console.log(err);
+});
 
-printEmployee(number);
