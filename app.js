@@ -8,10 +8,8 @@ const configurePassport = require('./config/configPassport');
 const ejsMate = require('ejs-mate');
 const path = require('path');
 require('dotenv').config();
-const loginRouter = require('./routes/login');
-const registerRouter = require('./routes/register');
-const profileRouter = require('./routes/profile');
 const cookieParser = require('cookie-parser');
+const ExpressError = require('./utils/ExpressError');
 
 app.use(session({
     secret: 'keyboard cat',
@@ -21,7 +19,7 @@ app.use(session({
 }));
 app.use(cookieParser('keyboard cat'));
 app.use(flash());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -36,12 +34,25 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 //Configure routes
-app.use('/login', loginRouter);
-app.use('/register', registerRouter);
-app.use('/profile', profileRouter);
+app.use('/login', require('./routes/login'));
+app.use('/register', require('./routes/register'));
+app.use('/profile', require('./routes/profile'));
+app.use('/transactions', require('./routes/transactions'));
+app.use('/products', require('./routes/products'));
 
 app.get('/', (req, res) => {
     res.render('home');
+});
+
+app.all('*', (req, res, next) => {
+    next(new ExpressError('Page not found', 404));
+});
+
+app.use((err, req, res, next) => {
+    const { statusCode = 500, message = 'Something went wrong!' } = err;
+    //Updates the error message and status code if they are not set
+    const updatedErr = new ExpressError(message, statusCode);
+    res.status(statusCode).render('error', { err: updatedErr});
 });
 
 app.listen(process.env.PORT, () => {
