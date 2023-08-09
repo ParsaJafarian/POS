@@ -9,36 +9,53 @@ const flashMessages = document.querySelector('.flash-messages');
 
 const addedProductsTexts = new Set();
 
-
-const addProduct = (res, is_return) => {
-    const productText = is_return ?
+const getProductText = (res, is_return) => {
+    return is_return ?
         res.data.number + ' / ' + res.data.type + ' / -' + res.data.price + '$' :
         res.data.number + ' / ' + res.data.type + ' / ' + res.data.price + '$';
+};
 
-    if (addedProductsTexts.has(productText)) throw new Error('Product already added');
-
-    const li = document.createElement('li');
-    li.className = 'list-group-item d-flex justify-content-between align-items-center';
-
-    const flexContainer = document.createElement('div');
-    flexContainer.className = 'd-flex justify-content-between align-items-center w-100 flex-container';
-
+const makeSpan = (text) => {
     const span = document.createElement('span');
-    span.className = 'product-text';
-    span.textContent = productText;
+    span.textContent = text;
+    return span;
+};
 
+const makeDeleteBtn = () => {
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'X';
     deleteBtn.className = 'btn btn-danger btn-sm delete-btn px-1 py-0';
+    return deleteBtn;
+};
+
+const makeFlexContainer = (span, deleteBtn) => {
+    const flexContainer = document.createElement('div');
+    flexContainer.className = 'd-flex justify-content-between align-items-center w-100 flex-container';
+    flexContainer.appendChild(span);
+    flexContainer.appendChild(deleteBtn);
+    return flexContainer;
+};
+
+const makeLi = (container) => {
+    const li = document.createElement('li');
+    li.className = 'list-group-item d-flex justify-content-between align-items-center';
+    li.appendChild(container);
+    return li;
+};
+
+const addProduct = (res, is_return) => {
+    const productText = getProductText(res, is_return);
+    if (addedProductsTexts.has(productText)) throw new Error('Product already added');
+    const deleteBtn = makeDeleteBtn();
     deleteBtn.addEventListener('click', (e) => {
         e.preventDefault();
         ol.removeChild(li);
         addedProductsTexts.delete(productText);
     });
-
-    flexContainer.appendChild(span);
-    flexContainer.appendChild(deleteBtn);
-    li.appendChild(flexContainer);
+    const span = makeSpan(productText);
+    const flexContainer = makeFlexContainer(span, deleteBtn);
+    
+    const li = makeLi(flexContainer);
     ol.appendChild(li);
     addedProductsTexts.add(productText);
 };
