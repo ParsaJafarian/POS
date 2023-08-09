@@ -1,6 +1,8 @@
 'use strict';
 
-const button = document.querySelector('#productBtn');
+const buyBtn = document.querySelector('#buy-btn');
+const returnBtn = document.querySelector('#return-btn');
+
 const input = document.querySelector('#productInput');
 const ol = document.querySelector('#products');
 const flashMessages = document.querySelector('.flash-messages');
@@ -62,11 +64,16 @@ const displayError = (err) => {
     flashMessages.appendChild(flashMessage);
 };
 
-button.addEventListener('click', (e) => {
+buyBtn.addEventListener('click', (e) => {
     e.preventDefault();
     if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
     axios.get('/products/' + input.value)
         .then((res) => addProduct(res))
         .catch((err) => displayError(err));
+});
+
+returnBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
 });
 
