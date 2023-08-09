@@ -9,11 +9,34 @@
                 <span class="input-group-text">#</span>
                 <input type="number" name="num" class="form-control" id="productInput" placeholder="product num" />
                 <button class="btn btn-success" id="buy-btn">Buy</button>
-                <button class="btn btn-danger" id="return-btn">Return</button>
+                <button type="button" class="btn btn-danger" id="return-btn" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    Return
+                </button>
                 <button class="btn btn-primary" id="reset-btn">Reset</button>
             </form>
             <div>
                 <ol class="list-group list-group-numbered list-group-flush" id="products"></ol>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Enter Transaction Number</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group">
+                        <input class="form-control" type="number" name="number" id="transaction-input">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="transaction-btn">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
