@@ -7,7 +7,7 @@
             <h1 class="text-center">New Transaction</h1>
             <form class="input-group w-auto">
                 <span class="input-group-text">#</span>
-                <input type="number" name="num" class="form-control" id="productInput" placeholder="product num" />
+                <input type="number" name="num" class="form-control" id="product-input" placeholder="product num" />
                 <button class="btn btn-success" id="buy-btn">Buy</button>
                 <button type="button" class="btn btn-danger" id="return-btn" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">
@@ -30,12 +30,12 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-group">
-                        <input class="form-control" type="number" name="number" id="transaction-input">
+                        <input class="form-control" type="number" name="num" id="transaction-input" placeholder="# transaction">
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="transaction-btn">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="transaction-btn">Save</button>
                 </div>
             </div>
         </div>

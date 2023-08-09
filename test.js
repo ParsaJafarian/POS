@@ -1,10 +1,18 @@
 const db = require('./utils/db');
 
-const employee_num = async () => {
-    const q = 'SELECT num FROM employees';
-    const result = await db.query(q);
-    const employees = result[0];
-    console.log(employees);
-}
+const setLastTransNum = async () => {
+    const select = 'SELECT num FROM products';
+    const result = await db.query(select);
+    const productNums = result[0].map(product => product.num);
 
-employee_num();
+    for (let num of productNums) {
+        const update = `UPDATE products
+                SET last_trans_num = (
+                    SELECT MAX(trans_num) AS last_trans_num 
+                    FROM transaction_products 
+                    WHERE product_num = ${num}
+                )
+                WHERE num = ${num}`;
+        await db.query(update);
+    };
+};
