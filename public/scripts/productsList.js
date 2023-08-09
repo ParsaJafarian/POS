@@ -20,12 +20,26 @@ const makeDeleteBtn = (li) => {
     return deleteBtn;
 };
 
+const makeSpan = (productText) => {
+    const span = document.createElement('span');
+    span.className = 'product-text';
+    span.textContent = productText;
+    return span;
+};
+
+const makeFlexContainer = (productText) => {
+    const flexContainer = document.createElement('div');
+    flexContainer.className = 'd-flex justify-content-between align-items-center w-100';
+    flexContainer.appendChild(makeSpan(productText));
+    flexContainer.appendChild(makeDeleteBtn());
+    return flexContainer;
+};
+
 const makeLi = (productText) => {
     const li = document.createElement('li');
-    li.className = 'd-flex justify-content-between align-items-center';
-    li.innerHTML = `<span class="product-text">${productText}</span>`;
-    const deleteBtn = makeDeleteBtn(li, addedProductsTexts);
-    li.appendChild(deleteBtn);
+    li.className = 'list-group-item d-flex justify-content-between align-items-center';
+    const flexContainer = makeFlexContainer(productText);
+    li.appendChild(flexContainer);
     return li;
 };
 
