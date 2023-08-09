@@ -2,7 +2,7 @@ const { insertCustomers, insertEmployees } = require('./people');
 const insertProducts = require('./products');
 const insertTransactions = require('./transactions');
 const insertTransactionProducts = require('./transaction_products');
-const db = require('../config/db');
+const db = require('../utils/db');
 
 const insertFakeData = async () => {
     await db.query('DELETE FROM transaction_products');

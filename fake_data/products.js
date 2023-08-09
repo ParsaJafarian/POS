@@ -1,5 +1,5 @@
 const { faker } = require('@faker-js/faker');
-const db = require('../config/db');
+const db = require('../utils/db');
 
 const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'];
 const types = ['T-Shirt', 'Polo', 'Sweatshirt', 'Hoodie', 'Jacket', 'Pants', 'Shorts', 'Hat', 'underwear', 'Other'];

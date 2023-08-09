@@ -1,5 +1,5 @@
 const { faker } = require('@faker-js/faker');
-const db = require('../config/db');
+const db = require('../utils/db');
 
 const firstName = () => faker.person.firstName();
 const lastName = () => faker.person.lastName();

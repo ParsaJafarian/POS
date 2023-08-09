@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
-const configurePassport = require('./config/configPassport');
+const configurePassport = require('./utils/configPassport');
 const ejsMate = require('ejs-mate');
 const path = require('path');
 require('dotenv').config();

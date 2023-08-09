@@ -1,5 +1,5 @@
 const { faker } = require('@faker-js/faker');
-const db = require('../config/db');
+const db = require('../utils/db');
 
 const date = () => faker.date.past();
 const employee_num = async () => {

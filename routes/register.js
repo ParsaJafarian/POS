@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const db = require('../config/db');
+const db = require('../utils/db');
 const catchAsync = require('../utils/catchAsync');
 
 router.get('/', (req, res) => {

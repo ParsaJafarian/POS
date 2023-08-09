@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const db = require('../utils/db');
 
 const product_num = async () => {
     const q = 'SELECT num FROM products';
