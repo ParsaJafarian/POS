@@ -8,9 +8,9 @@ CREATE TABLE
         size CHAR(3) NOT NULL DEFAULT 'M',
         brand VARCHAR(100),
         is_available BOOLEAN NOT NULL DEFAULT 0,
-        most_recent_trans_num INT,
+        last_trans_num INT,
         -- most recent transaction num
-        Foreign Key (most_recent_trans_num) REFERENCES transactions(num),
+        Foreign Key (last_trans_num) REFERENCES transactions(num),
         CONSTRAINT valid_price CHECK (price >= 0),
         CONSTRAINT valid_size CHECK (
             size IN (
