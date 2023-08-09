@@ -1,5 +1,5 @@
 const { insertCustomers, insertEmployees } = require('./people');
-const insertProducts = require('./products');
+const {insertProducts, updateProducts} = require('./products');
 const insertTransactions = require('./transactions');
 const insertTransactionProducts = require('./transaction_products');
 const db = require('../utils/db');
@@ -14,6 +14,7 @@ const insertFakeData = async () => {
     await insertTransactions(100);
     await insertProducts(100);
     await insertTransactionProducts(100);
+    await updateProducts();
     console.log("Fake data inserted");
 };
 
