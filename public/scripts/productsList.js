@@ -2,12 +2,15 @@
 
 const buyBtn = document.querySelector('#buy-btn');
 const returnBtn = document.querySelector('#return-btn');
+const transactionBtn = document.querySelector('#transaction-btn');
 
 const input = document.querySelector('#productInput');
 const ol = document.querySelector('#products');
 const flashMessages = document.querySelector('.flash-messages');
 
 const addedProductsTexts = new Set();
+var total = 0;
+var trans_num = null;
 
 const getProductText = (res, is_return) => {
     return is_return ?
@@ -54,10 +57,13 @@ const addProduct = (res, is_return) => {
     });
     const span = makeSpan(productText);
     const flexContainer = makeFlexContainer(span, deleteBtn);
-    
+
     const li = makeLi(flexContainer);
     ol.appendChild(li);
     addedProductsTexts.add(productText);
+
+    if (is_return) total -= res.data.price;
+    else total += res.data.price;
 };
 
 const displayError = (err) => {
@@ -76,12 +82,22 @@ buyBtn.addEventListener('click', (e) => {
         .catch((err) => displayError(err));
 });
 
-returnBtn.addEventListener('click', (e) => {
+transactionBtn.addEventListener('click', (e) => {
     e.preventDefault();
     if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
-    axios.get('/products/return/' + input.value)
-        .then((res) => addProduct(res, true))
+    axios.get('/transactions/' + input.value)
+        .then((res) => {
+            returnBtn.removeAttribute('data-toggle');
+            trans_num = res.data.number;
+        })
         .catch((err) => displayError(err));
-
 });
+
+// returnBtn.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
+//     axios.get('/products/return/' + input.value)
+//         .then((res) => addProduct(res, true))
+//         .catch((err) => displayError(err));
+// });
 
