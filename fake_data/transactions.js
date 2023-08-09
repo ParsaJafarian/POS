@@ -1,13 +1,13 @@
-const {faker} = require('@faker-js/faker');
+const { faker } = require('@faker-js/faker');
 const db = require('../config/db');
 
 const date = () => faker.date.past();
 const employee_num = async () => {
-    const q = 'SELECT number FROM employees';
+    const q = 'SELECT num FROM employees';
     const result = await db.query(q);
     const employees = result[0];
     const randomIndex = Math.floor(Math.random() * employees.length);
-    return employees[randomIndex].number;
+    return employees[randomIndex].num;
 }
 
 const createTransaction = async () => {

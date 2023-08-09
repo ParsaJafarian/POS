@@ -11,8 +11,8 @@ const addedProductsTexts = new Set();
 
 const getProductText = (res, is_return) => {
     return is_return ?
-        res.data.number + ' / ' + res.data.type + ' / -' + res.data.price + '$' :
-        res.data.number + ' / ' + res.data.type + ' / ' + res.data.price + '$';
+        res.data.num + ' / ' + res.data.type + ' / -' + res.data.price + '$' :
+        res.data.num + ' / ' + res.data.type + ' / ' + res.data.price + '$';
 };
 
 const makeSpan = (text) => {
@@ -54,7 +54,7 @@ const addProduct = (res, is_return) => {
     });
     const span = makeSpan(productText);
     const flexContainer = makeFlexContainer(span, deleteBtn);
-    
+
     const li = makeLi(flexContainer);
     ol.appendChild(li);
     addedProductsTexts.add(productText);
@@ -82,6 +82,5 @@ returnBtn.addEventListener('click', (e) => {
     axios.get('/products/return/' + input.value)
         .then((res) => addProduct(res, true))
         .catch((err) => displayError(err));
-
 });
 

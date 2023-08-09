@@ -3,20 +3,20 @@ const db = require('./db');
 const bcrypt = require('bcrypt');
 
 const useStrategy = (passport) => passport.use(
-    new LocalStrategy({ usernameField: 'number', passwordField: 'password' },
-        async function verify(number, password, done) {
+    new LocalStrategy({ usernameField: 'num', passwordField: 'password' },
+        async function verify(num, password, done) {
             try {
                 //Get user from database and check if exists
-                const q = "SELECT * FROM employees WHERE number = ?";
-                const results = await db.query(q, [number]);
+                const q = "SELECT * FROM employees WHERE num = ?";
+                const results = await db.query(q, [num]);
                 const employee = results[0][0];
                 if (!employee) {
-                    return done(null, false, { message: 'Incorrect employee number or password' });
+                    return done(null, false, { message: 'Incorrect employee num or password' });
                 }
                 //Validate password
                 const validPassword = await bcrypt.compare(password, employee.password);
                 if (!validPassword) {
-                    return done(null, false, { message: 'Incorrect employee number or password' });
+                    return done(null, false, { message: 'Incorrect employee num or password' });
                 }
                 return done(null, employee);
             } catch (err) {
@@ -28,7 +28,7 @@ const useStrategy = (passport) => passport.use(
 const serialize = (passport) => {
     passport.serializeUser((employee, done) => {
         process.nextTick(() => {
-            done(null, { id: employee.id, enumber: employee.number });
+            done(null, { id: employee.id, enumber: employee.num });
         });
     });
 };

@@ -4,7 +4,7 @@ const db = require('../config/db');
 const firstName = () => faker.person.firstName();
 const lastName = () => faker.person.lastName();
 const email = () => faker.internet.email();
-const phone = () => faker.phone.number('514-###-####')
+const phone = () => faker.phone.num('514-###-####')
 const discount = () => {
     const rand = parseFloat(Math.random().toFixed(2));
     if (rand === 1) return rand - 0.1;

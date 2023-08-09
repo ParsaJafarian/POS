@@ -12,8 +12,8 @@ router.get('/', (req, res) => {
 router.post('/', passport.authenticate('local', {
     successRedirect: '/transactions/new',
     failureRedirect: '/login',
-    failureFlash: 'Invalid employee number or password',
+    failureFlash: 'Invalid employee num or password',
     successFlash: 'Welcome!'
 }));
- 
+
 module.exports = router;

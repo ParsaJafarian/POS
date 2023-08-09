@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const db = require('../config/db');
-const { v4: uuid } = require('uuid');
 const catchAsync = require('../utils/catchAsync');
 
 router.get('/', (req, res) => {
@@ -11,8 +10,8 @@ router.get('/', (req, res) => {
 
 router.post('/', catchAsync(async (req, res, next) => {
     const hash = await bcrypt.hash(req.body.password, 12);
-    const q = "INSERT INTO employees (id, number, first_name, last_name, email, phone, password) VALUES ?";
-    const data = [[uuid(), req.body.number, req.body.first_name, req.body.last_name, req.body.email, req.body.phone, hash]];
+    const q = "INSERT INTO employees (num, first_name, last_name, email, phone, password) VALUES ?";
+    const data = [[req.body.num, req.body.first_name, req.body.last_name, req.body.email, req.body.phone, hash]];
     await db.query(q, [data]);
     res.redirect('/login');
 }));
