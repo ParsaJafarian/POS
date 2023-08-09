@@ -9,19 +9,9 @@ const price = () => faker.commerce.price();
 const type = () => types[Math.floor(Math.random() * types.length)];
 const size = () => sizes[Math.floor(Math.random() * sizes.length)];
 const is_available = () => Math.random() > 0.8 ? 1 : 0;
-
 const brand = () => brands[Math.floor(Math.random() * brands.length)];
 
-const createProduct = () => {
-    return [
-        price(),
-        type(),
-        size(),
-        is_available(),
-        brand()
-    ]
-}
-
+const createProduct = () => [price(), type(), size(), is_available(), brand()];
 const insertProducts = async (n) => {
     const products = [];
     for (let i = 0; i < n; i++)

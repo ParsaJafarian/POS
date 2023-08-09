@@ -16,13 +16,7 @@ const trans_num = async () => {
     return transactions[randomIndex].num;
 }
 
-const createTransactionProduct = async () => {
-    return [
-        await trans_num(),
-        await product_num()
-    ]
-}
-
+const createTransactionProduct = async () => [await trans_num(), await product_num()];
 const insertTransactionProducts = async (n) => {
     const transactionProducts = [];
     for (let i = 0; i < n; i++) {

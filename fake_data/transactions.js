@@ -10,13 +10,7 @@ const employee_num = async () => {
     return employees[randomIndex].num;
 }
 
-const createTransaction = async () => {
-    return [
-        date(),
-        await employee_num()
-    ]
-}
-
+const createTransaction = async () => [date(), await employee_num()];
 const insertTransactions = async (n) => {
     const transactions = [];
     for (let i = 0; i < n; i++)
