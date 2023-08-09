@@ -45,10 +45,12 @@ const makeLi = (productText) => {
     return li;
 };
 
-const addProduct = (res) => {
-    const productText = res.data.number + ' - ' + res.data.type + ' - ' + res.data.price + '$';
-    if (addedProductsTexts.has(productText))
-        throw new Error('Product already added');
+const addProduct = (res, is_return) => {
+    const productText = is_return ?
+        res.data.number + ' / ' + res.data.type + ' / -' + res.data.price + '$' :
+        res.data.number + ' / ' + res.data.type + ' / ' + res.data.price + '$';
+
+    if (addedProductsTexts.has(productText)) throw new Error('Product already added');
 
     const li = makeLi(productText, addedProductsTexts);
 
@@ -67,13 +69,17 @@ const displayError = (err) => {
 buyBtn.addEventListener('click', (e) => {
     e.preventDefault();
     if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
-    axios.get('/products/' + input.value)
-        .then((res) => addProduct(res))
+    axios.get('/products/buy/' + input.value)
+        .then((res) => addProduct(res, false))
         .catch((err) => displayError(err));
 });
 
 returnBtn.addEventListener('click', (e) => {
     e.preventDefault();
     if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
+    axios.get('/products/return/' + input.value)
+        .then((res) => addProduct(res, true))
+        .catch((err) => displayError(err));
+
 });
 
