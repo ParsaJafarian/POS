@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS transactions;
 
 CREATE TABLE
     IF NOT EXISTS transactions (
-        id VARCHAR(255) NOT NULL UNIQUE,
         number INT PRIMARY KEY AUTO_INCREMENT,
         date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
         employee_num INT NOT NULL,

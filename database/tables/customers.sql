@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS customers;
 
 CREATE TABLE
     IF NOT EXISTS customers (
-        id VARCHAR(255) NOT NULL UNIQUE,
         number INT PRIMARY KEY AUTO_INCREMENT,
         first_name VARCHAR(50) NOT NULL,
         last_name VARCHAR(50) NOT NULL,
