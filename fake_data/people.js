@@ -1,8 +1,6 @@
 const { faker } = require('@faker-js/faker');
-const { v4: uuid } = require('uuid');
 const db = require('../config/db');
 
-const id = () => uuid();
 const firstName = () => faker.person.firstName();
 const lastName = () => faker.person.lastName();
 const email = () => faker.internet.email();
@@ -16,7 +14,6 @@ const password = () => faker.internet.password();
 
 const createPerson = () => {
     return [
-        id(),
         firstName(),
         lastName(),
         email(),
@@ -39,14 +36,14 @@ const insertCustomers = async (n) => {
     const customers = [];
     for (let i = 0; i < n; i++)
         customers.push(createCustomer());
-    const q = 'INSERT INTO customers (id, first_name, last_name, email, phone, discount) VALUES ?';
+    const q = 'INSERT INTO customers ( first_name, last_name, email, phone, discount) VALUES ?';
     await db.query(q, [customers]);
 };
 const insertEmployees = async (n) => {
     const employees = [];
     for (let i = 0; i < n; i++)
         employees.push(createEmployee());
-    const q = 'INSERT INTO employees (id, first_name, last_name, email, phone, password) VALUES ?';
+    const q = 'INSERT INTO employees ( first_name, last_name, email, phone, password) VALUES ?';
     await db.query(q, [employees]);
 };
 
