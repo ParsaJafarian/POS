@@ -3,17 +3,17 @@ const db = require('../utils/db');
 const product_num = async () => {
     const q = 'SELECT num FROM products';
     const result = await db.query(q);
-    const products = result[0];
-    const randomIndex = Math.floor(Math.random() * products.length);
-    return products[randomIndex].num;
+    const productNums = result[0].map(product => product.num);
+    const randomIndex = Math.floor(Math.random() * productNums.length);
+    return productNums[randomIndex];
 }
 
 const trans_num = async () => {
     const q = 'SELECT num FROM transactions';
     const result = await db.query(q);
-    const transactions = result[0];
-    const randomIndex = Math.floor(Math.random() * transactions.length);
-    return transactions[randomIndex].num;
+    const transactionNums = result[0].map(transaction => transaction.num);
+    const randomIndex = Math.floor(Math.random() * transactionNums.length);
+    return transactionNums[randomIndex];
 }
 
 const createTransactionProduct = async () => [await trans_num(), await product_num()];
