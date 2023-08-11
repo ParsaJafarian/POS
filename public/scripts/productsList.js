@@ -3,6 +3,7 @@
 const buyBtn = document.querySelector('#buy-btn');
 const returnBtn = document.querySelector('#return-btn');
 const transactionBtn = document.querySelector('#transaction-btn');
+const checkoutBtn = document.querySelector('#checkout-btn');
 
 const productInput = document.querySelector('#product-input');
 const transactionInput = document.querySelector('#transaction-input');
@@ -11,11 +12,11 @@ const ol = document.querySelector('#products');
 const flashMessages = document.querySelector('.flash-messages');
 
 const addedProductsTexts = new Set();
-var total = 0;
+const total = document.querySelector('#total');
 var trans_num = null;
 
-const getProductText = (res, is_return) => {
-    return is_return ?
+const getProductText = (res, isReturn) => {
+    return isReturn ?
         res.data.num + ' / ' + res.data.type + ' / -' + res.data.price + '$' :
         res.data.num + ' / ' + res.data.type + ' / ' + res.data.price + '$';
 };
@@ -48,13 +49,13 @@ const makeLi = container => {
     return li;
 };
 
-const addProduct = (res, is_return) => {
-    if (is_return) {
+const addProduct = (res, isReturn) => {
+    if (isReturn) {
         if (res.data.is_available) throw new Error('Product is already available');
         if (res.data.last_trans_num != trans_num) throw new Error('Transaction does not match');
     }
 
-    const productText = getProductText(res, is_return);
+    const productText = getProductText(res, isReturn);
     if (addedProductsTexts.has(productText)) throw new Error('Product already added');
     const deleteBtn = makeDeleteBtn();
     deleteBtn.addEventListener('click', (e) => {
@@ -69,8 +70,8 @@ const addProduct = (res, is_return) => {
     ol.appendChild(li);
     addedProductsTexts.add(productText);
 
-    if (is_return) total -= res.data.price;
-    else total += res.data.price;
+    if (isReturn) total.textContent = parseFloat(total.textContent) - res.data.price;
+    else total.textContent = parseFloat(total.textContent) + res.data.price;
 };
 
 const displayError = err => {
