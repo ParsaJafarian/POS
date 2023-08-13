@@ -3,6 +3,7 @@
 const buyBtn = document.querySelector('#buy-btn');
 const returnBtn = document.querySelector('#return-btn');
 const transactionBtn = document.querySelector('#transaction-btn');
+const methodBtn = document.querySelector('#method-btn');
 const checkoutBtn = document.querySelector('#checkout-btn');
 
 const productInput = document.querySelector('#product-input');
@@ -13,7 +14,9 @@ const flashMessages = document.querySelector('.flash-messages');
 
 const addedProductsTexts = new Set();
 const total = document.querySelector('#total');
+
 var trans_num = null;
+const products = [];
 
 const getProductText = (res, isReturn) => {
     return isReturn ?
@@ -57,18 +60,23 @@ const addProduct = (res, isReturn) => {
 
     const productText = getProductText(res, isReturn);
     if (addedProductsTexts.has(productText)) throw new Error('Product already added');
+
     const deleteBtn = makeDeleteBtn();
     deleteBtn.addEventListener('click', (e) => {
         e.preventDefault();
         ol.removeChild(li);
         addedProductsTexts.delete(productText);
+        total.textContent = parseFloat(total.textContent) - res.data.price;
     });
     const span = makeSpan(productText);
+
     const flexContainer = makeFlexContainer(span, deleteBtn);
 
     const li = makeLi(flexContainer);
     ol.appendChild(li);
     addedProductsTexts.add(productText);
+
+    products.add([...res.data]);
 
     if (isReturn) total.textContent = parseFloat(total.textContent) - res.data.price;
     else total.textContent = parseFloat(total.textContent) + res.data.price;
@@ -90,21 +98,7 @@ buyBtn.addEventListener('click', e => {
         .catch(err => displayError(err));
 });
 
-transactionBtn.addEventListener('click', e => {
-    e.preventDefault();
-    if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
-    axios.get('/transactions/' + transactionInput.value)
-        .then(res => {
-            returnBtn.removeAttribute('data-bs-toggle');
-            const text = `Transaction Number ${res.data.num} successfully entered`;
-            if(transactionBtn.parentElement.children.length > 2) transactionBtn.parentElement.removeChild(transactionBtn.parentElement.children[2]);
-            transactionBtn.parentElement.appendChild(makeSpan(text));
-            trans_num = res.data.num;
-        })
-        .catch(err => displayError(err));
-});
-
-returnBtn.addEventListener('click', (e) => {
+returnBtn.addEventListener('click', e => {
     if (!trans_num) return;
     e.preventDefault();
     if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
@@ -113,3 +107,41 @@ returnBtn.addEventListener('click', (e) => {
         .catch((err) => displayError(err));
 });
 
+transactionBtn.addEventListener('click', e => {
+    e.preventDefault();
+    if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
+    axios.get('/transactions/' + transactionInput.value)
+        .then(res => {
+            returnBtn.removeAttribute('data-bs-toggle');
+            const text = `Transaction Number ${res.data.num} successfully entered`;
+            // If there is already a span, remove it 
+            if (transactionBtn.parentElement.children.length > 2) transactionBtn.parentElement.removeChild(transactionBtn.parentElement.children[2]);
+            const span = makeSpan(text);
+            span.classList.add('text-success');
+            transactionBtn.parentElement.appendChild(span);
+            trans_num = res.data.num;
+        })
+        .catch(err => displayError(err));
+});
+
+checkoutBtn.addEventListener('click', e => {
+    try {
+        e.preventDefault();
+        if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
+        if (total.textContent == 0) throw new Error('No products added');
+        const modal = new bootstrap.Modal(document.querySelector('#checkout-modal'));
+        modal.show();
+    } catch (err) {
+        displayError(err);
+    }
+});
+
+// methodBtn.addEventListener('click', e => {
+//     e.preventDefault();
+//     if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
+//     axios.post('/transactions', { products: [...products], employee_num: get employee number })
+//         .then(res => {
+//             // Resolved
+//         })
+//         .catch(err => displayError(err));
+// });
