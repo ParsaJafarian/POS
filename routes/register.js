@@ -13,7 +13,7 @@ router.post('/', catchAsync(async (req, res, next) => {
     const q = "INSERT INTO employees (num, first_name, last_name, email, phone, password) VALUES ?";
     const data = [[req.body.num, req.body.first_name, req.body.last_name, req.body.email, req.body.phone, hash]];
     await db.query(q, [data]);
-    res.redirect('/login');
+    res.redirect('/authentication/login');
 }));
 
 router.use((err, req, res, next) => {
