@@ -7,7 +7,7 @@ CREATE TABLE
         type VARCHAR(100) NOT NULL,
         size CHAR(3) NOT NULL DEFAULT 'M',
         brand VARCHAR(100),
-        is_available BOOLEAN NOT NULL DEFAULT 0,
+        is_available BOOLEAN NOT NULL DEFAULT 1,
         last_trans_num INT,
         -- most recent transaction num
         Foreign Key (last_trans_num) REFERENCES transactions(num),
