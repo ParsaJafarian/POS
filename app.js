@@ -50,7 +50,6 @@ app.all('*', (req, res, next) => {
 
 app.use((err, req, res, next) => {
     const { statusCode = 500, message = 'Something went wrong!' } = err;
-    //Updates the error message and status code if they are not set
     const updatedErr = new ExpressError(message, statusCode);
     res.status(statusCode).render('error', { err: updatedErr});
 });
