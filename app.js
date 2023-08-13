@@ -34,8 +34,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 //Configure routes
-app.use('/login', require('./routes/login'));
-app.use('/logout', require('./routes/logout'));
+app.use('/auth', require('./routes/auth'));
 app.use('/register', require('./routes/register'));
 app.use('/profile', require('./routes/profile'));
 app.use('/transactions', require('./routes/transactions'));
@@ -52,7 +51,7 @@ app.all('*', (req, res, next) => {
 app.use((err, req, res, next) => {
     const { statusCode = 500, message = 'Something went wrong!' } = err;
     const updatedErr = new ExpressError(message, statusCode);
-    res.status(statusCode).render('error', { err: updatedErr});
+    res.status(statusCode).render('error', { err: updatedErr });
 });
 
 app.listen(process.env.PORT, () => {

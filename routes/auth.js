@@ -12,14 +12,14 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/transactions/new',
-    failureRedirect: '/authentication/login',
+    failureRedirect: '/auth/login',
     failureFlash: 'Invalid employee num or password',
     successFlash: 'Welcome!'
 }));
 
 router.get('/logout', isLoggedIn, (req, res) => {
     req.logout();
-    res.redirect('/authentication/login');
+    res.redirect('/auth/login');
 });
 
 module.exports = router;
