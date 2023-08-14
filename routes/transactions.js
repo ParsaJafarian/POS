@@ -21,7 +21,7 @@ router.get('/:num', catchAsync(async (req, res) => {
 router.post('/', catchAsync(async (req, res) => {
     await completeTransaction(req.user.num, req.body.productNums);
     console.log('Transaction completed');
-    req.flash('success', 'Transaction completed successfully');
+    req.flash('success', 'Transaction completed');
     res.redirect('/transactions/new');
 }));
 
