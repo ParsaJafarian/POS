@@ -53,5 +53,11 @@ methodBtn.addEventListener('click', e => {
     e.preventDefault();
     if (errorMessages.children.length > 0) errorMessages.removeChild(errorMessages.children[0]);
     axios.post('http://localhost:3000/transactions', { productNums })
+        .then(res => {
+            const modal = new bootstrap.Modal(document.querySelector('#checkout-modal'));
+            console.log("transaction complete");
+            modal.hide();
+            window.location.reload();
+        })
         .catch(err => displayError(err));
 });
