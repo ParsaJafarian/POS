@@ -28,7 +28,7 @@ const useStrategy = (passport) => passport.use(
 const serialize = (passport) => {
     passport.serializeUser((employee, done) => {
         process.nextTick(() => {
-            done(null, { id: employee.id, enumber: employee.num });
+            done(null, { enumber: employee.num });
         });
     });
 };
