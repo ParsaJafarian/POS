@@ -1,3 +1,5 @@
+const db = require('./db');
+
 const addTransactions = async (employee_num) => {
     const q = 'INSERT INTO transactions (employee_num) VALUES (?)';
     const result = await db.query(q, [employee_num]);
@@ -21,7 +23,6 @@ const completeTransaction = async (employee_num, product_nums) => {
     const trans_num = await addTransactions(employee_num);
     await updateProducts(trans_num, product_nums);
     await addTransactionProducts(trans_num, product_nums);
-    console.log('Transaction completed');
 };
 
 module.exports = completeTransaction;
