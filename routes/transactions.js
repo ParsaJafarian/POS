@@ -6,6 +6,13 @@ const ExpressError = require('../utils/ExpressError');
 const completeTransaction = require('../utils/completeTransaction');
 const { isLoggedIn } = require('../utils/middleware');
 
+router.get('/', isLoggedIn, catchAsync(async (req, res) => {
+    const q = "SELECT trans_num AS num, employee_num, DATE_FORMAT(date, '%d-%m-%Y') AS date, SUM(price) AS total FROM transaction_products JOIN transactions ON transactions.num = transaction_products.trans_num JOIN products ON products.num = transaction_products.product_num GROUP BY num";
+    const result = await db.query(q, [req.user.num]);
+    const transactions = result[0];
+    res.render('transactions', { transactions });
+}));
+
 router.get('/new', isLoggedIn, (req, res) => {
     res.render('new_transaction', { messages: req.flash('success') });
 });
