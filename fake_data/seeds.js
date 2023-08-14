@@ -1,4 +1,4 @@
-const { insertCustomers, insertEmployees } = require('./people');
+const { insertEmployees } = require('./people');
 const {insertProducts, updateProducts} = require('./products');
 const insertTransactions = require('./transactions');
 const insertTransactionProducts = require('./transaction_products');
@@ -10,10 +10,10 @@ const insertFakeData = async () => {
     await db.query('DELETE FROM transactions');
     await db.query('DELETE FROM employees');
 
-    await insertEmployees(30);
-    await insertTransactions(100);
-    await insertProducts(100);
-    await insertTransactionProducts(100);
+    await insertEmployees(10);
+    await insertTransactions(30);
+    await insertProducts(30);
+    await insertTransactionProducts(30);
     await updateProducts();
     console.log("Fake data inserted");
 };

@@ -8,7 +8,7 @@ const brands = ['Nike', 'Adidas', 'Puma', 'Reebok', 'New Balance', 'Under Armour
 const price = () => faker.commerce.price();
 const type = () => types[Math.floor(Math.random() * types.length)];
 const size = () => sizes[Math.floor(Math.random() * sizes.length)];
-const is_available = () => Math.random() > 0.8 ? 1 : 0;
+const is_available = () => Math.random() > 0.3 ? 1 : 0;
 const brand = () => brands[Math.floor(Math.random() * brands.length)];
 
 const createProduct = () => [price(), type(), size(), is_available(), brand()];
