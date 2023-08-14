@@ -7,7 +7,7 @@ const completeTransaction = require('../utils/completeTransaction');
 const { isLoggedIn } = require('../utils/middleware');
 
 router.get('/new', isLoggedIn, (req, res) => {
-    res.render('newTransaction', { messages: req.flash('success') });
+    res.render('new_transaction', { messages: req.flash('success') });
 });
 
 router.get('/:num', catchAsync(async (req, res) => {
