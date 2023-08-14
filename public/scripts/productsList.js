@@ -50,30 +50,29 @@ const makeLi = container => {
     return li;
 };
 
-const addProduct = (res, isReturn) => {
+const validateProduct = (res, isReturn) => {
     if (productNums.includes(res.data.num)) throw new Error('Product already added');
     if (isReturn) {
         if (res.data.is_available) throw new Error('Product is already available');
         if (res.data.last_trans_num != trans_num) throw new Error('Transaction does not match');
     }
+};
+const addProduct = (res, isReturn) => {
+    validateProduct(res, isReturn);
+    const price = isReturn ? -res.data.price : res.data.price;
 
-    const productText = getProductText(res, isReturn);
+    const span = makeSpan(getProductText(res, isReturn));
     const deleteBtn = makeDeleteBtn();
     deleteBtn.addEventListener('click', (e) => {
         e.preventDefault();
         ol.removeChild(li);
-        total.textContent = parseFloat(total.textContent) - res.data.price;
+        total.textContent = parseFloat(total.textContent) - price;
     });
-    const span = makeSpan(productText);
 
-    const flexContainer = makeFlexContainer(span, deleteBtn);
-
-    const li = makeLi(flexContainer);
-    ol.appendChild(li);
+    ol.appendChild(makeLi(makeFlexContainer(span, deleteBtn)));
     productNums.push(res.data.num);
 
-    if (isReturn) total.textContent = parseFloat(total.textContent) - res.data.price;
-    else total.textContent = parseFloat(total.textContent) + res.data.price;
+    total.textContent = parseFloat(total.textContent) + price;
 };
 
 const displayError = err => {
