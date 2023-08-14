@@ -4,9 +4,10 @@ const catchAsync = require('../utils/catchAsync');
 const db = require('../utils/db');
 const ExpressError = require('../utils/ExpressError');
 const completeTransaction = require('../utils/completeTransaction');
+const { isLoggedIn } = require('../utils/middleware');
 
-router.get('/new', (req, res) => {
-    res.render('newTransaction')
+router.get('/new', isLoggedIn, (req, res) => {
+    res.render('newTransaction', { messages: req.flash('success') });
 });
 
 router.get('/:num', catchAsync(async (req, res) => {
@@ -18,8 +19,10 @@ router.get('/:num', catchAsync(async (req, res) => {
 }));
 
 router.post('/', catchAsync(async (req, res) => {
-    completeTransaction(req.user.num, req.body.product_nums);
+    await completeTransaction(req.user.num, req.body.productNums);
+    console.log('Transaction completed');
+    req.flash('success', 'Transaction completed successfully');
+    res.redirect('/transactions/new');
 }));
-
 
 module.exports = router;
