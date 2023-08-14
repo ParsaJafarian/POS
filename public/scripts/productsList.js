@@ -1,16 +1,15 @@
-'use strict';
-
 const buyBtn = document.querySelector('#buy-btn');
 const returnBtn = document.querySelector('#return-btn');
 const transactionBtn = document.querySelector('#transaction-btn');
 const methodBtn = document.querySelector('#method-btn');
 const checkoutBtn = document.querySelector('#checkout-btn');
+const resetBtn = document.querySelector('#reset-btn');
 
 const productInput = document.querySelector('#product-input');
 const transactionInput = document.querySelector('#transaction-input');
 
 const ol = document.querySelector('#products');
-const flashMessages = document.querySelector('.flash-messages');
+const errorMessages = document.querySelector('#error-messages');
 
 const total = document.querySelector('#total');
 
@@ -52,7 +51,7 @@ const makeLi = container => {
 };
 
 const addProduct = (res, isReturn) => {
-    if(productNums.includes(res.data.num)) throw new Error('Product already added');
+    if (productNums.includes(res.data.num)) throw new Error('Product already added');
     if (isReturn) {
         if (res.data.is_available) throw new Error('Product is already available');
         if (res.data.last_trans_num != trans_num) throw new Error('Transaction does not match');
@@ -72,7 +71,7 @@ const addProduct = (res, isReturn) => {
 
     const li = makeLi(flexContainer);
     ol.appendChild(li);
-    productNums.push(res.data.num);    
+    productNums.push(res.data.num);
 
     if (isReturn) total.textContent = parseFloat(total.textContent) - res.data.price;
     else total.textContent = parseFloat(total.textContent) + res.data.price;
@@ -80,15 +79,15 @@ const addProduct = (res, isReturn) => {
 
 const displayError = err => {
     const { message = 'Invalid Input' } = err.response ? err.response.data : err;
-    const flashMessage = document.createElement('div');
-    flashMessage.classList.add('flash-message');
-    flashMessage.textContent = message;
-    flashMessages.appendChild(flashMessage);
+    const errorMessage = document.createElement('div');
+    errorMessage.classList.add('error-message');
+    errorMessage.textContent = message;
+    errorMessages.appendChild(errorMessage);
 };
 
 buyBtn.addEventListener('click', e => {
     e.preventDefault();
-    if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
+    if (errorMessages.children.length > 0) errorMessages.removeChild(errorMessages.children[0]);
     axios.get('/products/buy/' + productInput.value)
         .then(res => addProduct(res, false))
         .catch(err => displayError(err));
@@ -97,7 +96,7 @@ buyBtn.addEventListener('click', e => {
 returnBtn.addEventListener('click', e => {
     if (!trans_num) return;
     e.preventDefault();
-    if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
+    if (errorMessages.children.length > 0) errorMessages.removeChild(errorMessages.children[0]);
     axios.get('/products/return/' + productInput.value)
         .then((res) => addProduct(res, true))
         .catch((err) => displayError(err));
@@ -105,7 +104,7 @@ returnBtn.addEventListener('click', e => {
 
 transactionBtn.addEventListener('click', e => {
     e.preventDefault();
-    if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
+    if (errorMessages.children.length > 0) errorMessages.removeChild(errorMessages.children[0]);
     axios.get('/transactions/' + transactionInput.value)
         .then(res => {
             returnBtn.removeAttribute('data-bs-toggle');
@@ -123,7 +122,7 @@ transactionBtn.addEventListener('click', e => {
 checkoutBtn.addEventListener('click', e => {
     try {
         e.preventDefault();
-        if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
+        if (errorMessages.children.length > 0) errorMessages.removeChild(errorMessages.children[0]);
         if (total.textContent == 0) throw new Error('No products added');
         const modal = new bootstrap.Modal(document.querySelector('#checkout-modal'));
         modal.show();
@@ -132,12 +131,14 @@ checkoutBtn.addEventListener('click', e => {
     }
 });
 
+resetBtn.addEventListener('click', e => {
+    e.preventDefault();
+    window.location.reload();
+});
+
 methodBtn.addEventListener('click', e => {
     e.preventDefault();
-    if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
-    axios.post('/transactions', { productNums })
-        .then(res => {
-            // Resolved
-        })
+    if (errorMessages.children.length > 0) errorMessages.removeChild(errorMessages.children[0]);
+    axios.post('http://localhost:3000/transactions', { productNums })
         .catch(err => displayError(err));
 });
