@@ -12,11 +12,10 @@ const transactionInput = document.querySelector('#transaction-input');
 const ol = document.querySelector('#products');
 const flashMessages = document.querySelector('.flash-messages');
 
-const addedProductsTexts = new Set();
 const total = document.querySelector('#total');
 
 var trans_num = null;
-const products = [];
+const productNums = [];
 
 const getProductText = (res, isReturn) => {
     return isReturn ?
@@ -53,14 +52,13 @@ const makeLi = container => {
 };
 
 const addProduct = (res, isReturn) => {
+    if(productNums.includes(res.data.num)) throw new Error('Product already added');
     if (isReturn) {
         if (res.data.is_available) throw new Error('Product is already available');
         if (res.data.last_trans_num != trans_num) throw new Error('Transaction does not match');
     }
 
     const productText = getProductText(res, isReturn);
-    if (addedProductsTexts.has(productText)) throw new Error('Product already added');
-
     const deleteBtn = makeDeleteBtn();
     deleteBtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -74,10 +72,7 @@ const addProduct = (res, isReturn) => {
 
     const li = makeLi(flexContainer);
     ol.appendChild(li);
-    addedProductsTexts.add(productText);
-
-    // Turn product object into array and add to products array
-    products.push(Object.values(res.data));
+    productNums.push(res.data.num);    
 
     if (isReturn) total.textContent = parseFloat(total.textContent) - res.data.price;
     else total.textContent = parseFloat(total.textContent) + res.data.price;
@@ -137,12 +132,12 @@ checkoutBtn.addEventListener('click', e => {
     }
 });
 
-// methodBtn.addEventListener('click', e => {
-//     e.preventDefault();
-//     if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
-//     axios.post('/transactions', { products: [...products], employee_num: get employee number })
-//         .then(res => {
-//             // Resolved
-//         })
-//         .catch(err => displayError(err));
-// });
+methodBtn.addEventListener('click', e => {
+    e.preventDefault();
+    if (flashMessages.children.length > 0) flashMessages.removeChild(flashMessages.children[0]);
+    axios.post('/transactions', { productNums })
+        .then(res => {
+            // Resolved
+        })
+        .catch(err => displayError(err));
+});
