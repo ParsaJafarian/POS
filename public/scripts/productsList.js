@@ -62,7 +62,6 @@ const addProduct = (res, isReturn) => {
     deleteBtn.addEventListener('click', (e) => {
         e.preventDefault();
         ol.removeChild(li);
-        addedProductsTexts.delete(productText);
         total.textContent = parseFloat(total.textContent) - res.data.price;
     });
     const span = makeSpan(productText);
