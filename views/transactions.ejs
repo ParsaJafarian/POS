@@ -1,5 +1,41 @@
 <% layout('./layouts/boilerplate') %>
 
-<div class="container border d-flex justify-content-center align-items-center w-50">
-    <form action="/"></form>
-</div>
+    <h1>Transactions</h1>
+
+    <table id="transactions" class="table table-striped" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Transaction Number</th>
+                <th>Employee Number</th>
+                <th>Date</th>
+                <th>Total($)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% transactions.forEach((transaction)=> { %>
+                <tr>
+                    <td>
+                        <%= transaction.num %>
+                    </td>
+                    <td>
+                        <%= transaction.employee_num %>
+                    </td>
+                    <td>
+                        <%= transaction.date %>
+                    </td>
+                    <td>
+                        <%= transaction.total %>
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        (function () {
+            new DataTable('#transactions');
+        })();
+    </script>
