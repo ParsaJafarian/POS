@@ -76,7 +76,8 @@ const addProduct = (res, isReturn) => {
     ol.appendChild(li);
     addedProductsTexts.add(productText);
 
-    products.add([...res.data]);
+    // Turn product object into array and add to products array
+    products.push(Object.values(res.data));
 
     if (isReturn) total.textContent = parseFloat(total.textContent) - res.data.price;
     else total.textContent = parseFloat(total.textContent) + res.data.price;
