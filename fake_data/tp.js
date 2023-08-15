@@ -25,7 +25,7 @@ const insertTransactionProducts = async (n) => {
             transactionProducts.push(transactionProduct);
         else i--;
     }
-    const q = 'INSERT INTO transaction_products (trans_num, product_num) VALUES ?';
+    const q = 'INSERT INTO tp (trans_num, product_num) VALUES ?';
     await db.query(q, [transactionProducts]);
 }
 

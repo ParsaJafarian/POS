@@ -29,7 +29,7 @@ const setLastTransNum = async () => {
         const update = `UPDATE products
                 SET last_trans_num = (
                     SELECT MAX(trans_num) AS last_trans_num 
-                    FROM transaction_products 
+                    FROM tp 
                     WHERE product_num = ${num}
                 )
                 WHERE num = ${num}`;

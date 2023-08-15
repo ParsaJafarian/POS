@@ -1,11 +1,11 @@
 const { insertEmployees } = require('./people');
-const {insertProducts, updateProducts} = require('./products');
+const { insertProducts, updateProducts } = require('./products');
 const insertTransactions = require('./transactions');
-const insertTransactionProducts = require('./transaction_products');
+const insertTransactionProducts = require('./tp');
 const db = require('../utils/db');
 
 const insertFakeData = async () => {
-    await db.query('DELETE FROM transaction_products');
+    await db.query('DELETE FROM tp');
     await db.query('DELETE FROM products');
     await db.query('DELETE FROM transactions');
     await db.query('DELETE FROM employees');

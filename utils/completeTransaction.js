@@ -13,7 +13,7 @@ const updateProducts = async (last_trans_num, product_nums) => {
 };
 
 const addTransactionProducts = async (trans_num, product_nums) => {
-    const q = 'INSERT INTO transaction_products (trans_num, product_num) VALUES (?, ?)';
+    const q = 'INSERT INTO tp (trans_num, product_num) VALUES (?, ?)';
     for (let product_num of product_nums) {
         await db.query(q, [trans_num, product_num]);
     }
