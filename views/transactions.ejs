@@ -8,6 +8,8 @@
                 <th>Transaction Number</th>
                 <th>Employee Number</th>
                 <th>Date</th>
+                <th>Amount Bought($)</th>
+                <th>Amount Returned($)</th>
                 <th>Total($)</th>
             </tr>
         </thead>
@@ -15,13 +17,19 @@
             <% transactions.forEach((transaction)=> { %>
                 <tr>
                     <td>
-                        <%= transaction.num %>
+                        <%= transaction.trans_num %>
                     </td>
                     <td>
                         <%= transaction.employee_num %>
                     </td>
                     <td>
                         <%= transaction.date %>
+                    </td>
+                    <td>
+                        <%= transaction.amount_bought %>
+                    </td>
+                    <td>
+                        <%= transaction.amount_returned %>
                     </td>
                     <td>
                         <%= transaction.total %>
