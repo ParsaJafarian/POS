@@ -2,14 +2,16 @@
 
     <h1>Transactions</h1>
 
-    <table id="transactions" class="table table-striped" style="width:100%;">
+    <table id="transactions" class="table table-striped" >
         <thead>
             <tr>
-                <th>Transaction Number</th>
-                <th>Employee Number</th>
+                <th>trans-num</th>
+                <th>last-trans-num</th>
+                <th>e-num</th>
+                <th>last-e-num</th>
                 <th>Date</th>
-                <th>Amount Bought($)</th>
-                <th>Amount Returned($)</th>
+                <th>Bought($)</th>
+                <th>Returned($)</th>
                 <th>Total($)</th>
             </tr>
         </thead>
@@ -20,7 +22,13 @@
                         <%= transaction.trans_num %>
                     </td>
                     <td>
+                        <%= transaction.last_trans_num %>
+                    </td>
+                    <td>
                         <%= transaction.employee_num %>
+                    </td>
+                    <td>
+                        <%= transaction.last_employee_num %>
                     </td>
                     <td>
                         <%= transaction.date %>
