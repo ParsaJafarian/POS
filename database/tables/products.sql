@@ -3,14 +3,13 @@ DROP TABLE IF EXISTS products;
 CREATE TABLE
     IF NOT EXISTS products (
         num INT PRIMARY KEY AUTO_INCREMENT,
+        last_trans_num INT,
         price FLOAT NOT NULL DEFAULT 0,
+        is_available BOOLEAN NOT NULL DEFAULT 1,
         type VARCHAR(100) NOT NULL,
         size CHAR(3) NOT NULL DEFAULT 'M',
         brand VARCHAR(100),
-        is_available BOOLEAN NOT NULL DEFAULT 1,
-        last_trans_num INT,
-        -- most recent transaction num
-        Foreign Key (last_trans_num) REFERENCES transactions(num),
+        FOREIGN KEY (last_trans_num) REFERENCES transactions(num),
         CONSTRAINT valid_price CHECK (price >= 0),
         CONSTRAINT valid_size CHECK (
             size IN (
