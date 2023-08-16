@@ -27,7 +27,7 @@ router.get('/:num', catchAsync(async (req, res) => {
 
 router.post('/', catchAsync(async (req, res) => {
     if (!req.user) throw new ExpressError('User not authenticated', 401);
-    await completeTransaction(req.user.num, req.body.productNums);
+    await completeTransaction(req.user.num, req.body.trans_num, req.body.product_nums);
     console.log('Transaction completed');
     res.redirect('/transactions/new');
 }));
