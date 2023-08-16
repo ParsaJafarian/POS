@@ -20,6 +20,21 @@ FROM tp
     JOIN transactions ON transactions.num = tp.trans_num
     JOIN products ON products.num = tp.product_num;
 
+SELECT *
+FROM tp
+    JOIN transactions ON transactions.num = tp.trans_num
+    JOIN products ON products.num = tp.product_num;
+
+SELECT
+    products.num AS product_num,
+    last_trans_num,
+    employees.num AS last_employee_num
+FROM products
+    JOIN transactions ON products.last_trans_num = transactions.num
+    JOIN employees ON transactions.employee_num = employees.num;
+
+
+
 SELECT
     trans_num,
     SUM(price) AS amount_bought
@@ -106,3 +121,14 @@ FROM tp
             trans_num
     ) AS bought ON bought.trans_num = tp.trans_num
 GROUP BY tp.trans_num;
+
+SELECT
+    products.num AS product_num,
+    trans_num,
+    last_trans_num,
+    employees.num AS last_employee_num
+FROM products
+    JOIN transactions AS last_transactions ON products.last_trans_num = last_transactions.num
+    JOIN employees ON last_transactions.employee_num = employees.num
+    JOIN tp ON products.num = tp.product_num
+    JOIN transactions ON tp.trans_num = transactions.num;
