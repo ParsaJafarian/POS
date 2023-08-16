@@ -8,13 +8,13 @@ const insertFakeData = async () => {
     await db.query('DELETE FROM tp');
     await db.query('DELETE FROM products');
     await db.query('DELETE FROM transactions');
-    await db.query('DELETE FROM employees');
+    // await db.query('DELETE FROM employees');
 
-    await insertEmployees(10);
-    await insertTransactions(30);
+    // await insertEmployees(10);
+    // await insertTransactions(30);
     await insertProducts(30);
-    await insertTransactionProducts(30);
-    await updateProducts();
+    // await insertTransactionProducts(30);
+    // await updateProducts();
     console.log("Fake data inserted");
 };
 
