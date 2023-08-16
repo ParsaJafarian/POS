@@ -7,14 +7,14 @@ const completeTransaction = require('../utils/completeTransaction');
 const { isLoggedIn } = require('../utils/middleware');
 
 router.get('/', isLoggedIn, catchAsync(async (req, res) => {
-    const q = "SELECT trans_num AS num, employee_num, DATE_FORMAT(date, '%d-%m-%Y') AS date, SUM(price) AS total FROM tp JOIN transactions ON transactions.num = tp.trans_num JOIN products ON products.num = tp.product_num GROUP BY num";
-    const result = await db.query(q, [req.user.num]);
+    const q = 'SELECT * FROM tp_view';
+    const result = await db.query(q);
     const transactions = result[0];
     res.render('transactions', { transactions });
 }));
 
 router.get('/new', isLoggedIn, (req, res) => {
-    res.render('new_transaction', { messages: req.flash('success') });
+    res.render('new_transaction', { messages: req.flash('error') });
 });
 
 router.get('/:num', catchAsync(async (req, res) => {
@@ -26,10 +26,15 @@ router.get('/:num', catchAsync(async (req, res) => {
 }));
 
 router.post('/', catchAsync(async (req, res) => {
+    if (!req.user) throw new ExpressError('User not authenticated', 401);
     await completeTransaction(req.user.num, req.body.productNums);
     console.log('Transaction completed');
-    req.flash('success', 'Transaction completed');
     res.redirect('/transactions/new');
 }));
+
+router.use((err, req, res, next) => {
+    req.flash('error', err.message);
+    res.redirect('/transactions/new');
+});
 
 module.exports = router;
