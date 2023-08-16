@@ -10,7 +10,7 @@ const getProducts = () => document.querySelector('#products');
 const getTotal = () => document.querySelector('#total');
 const errorMessages = document.querySelector('#error-messages');
 var trans_num = null;
-const productNums = []; 
+const product_nums = []; 
 
 const getProductText = (res, isReturn) => {
     return isReturn ?
@@ -32,7 +32,7 @@ const makeDeleteBtn = (res, isReturn) => {
         e.preventDefault();
         e.target.parentElement.parentElement.remove();
         getTotal().textContent = parseFloat(getTotal().textContent) - getPrice(res, isReturn);
-        productNums.pop(res.data.num);
+        product_nums.pop(res.data.num);
     });
     return deleteBtn;
 };
@@ -53,7 +53,7 @@ const makeLi = (res, isReturn) => {
 };
 
 const validateProduct = (res, isReturn) => {
-    if (productNums.includes(res.data.num)) throw new Error('Product already added');
+    if (product_nums.includes(res.data.num)) throw new Error('Product already added');
     if (isReturn) {
         if (res.data.is_available) throw new Error('Product is already available');
         if (res.data.last_trans_num != trans_num) throw new Error('Transaction does not match');
@@ -65,7 +65,7 @@ const getPrice = (res, isReturn) => isReturn ? -res.data.price : res.data.price;
 const addProduct = (res, isReturn) => {
     validateProduct(res, isReturn);
     getProducts().appendChild(makeLi(res, isReturn));
-    productNums.push(res.data.num);
+    product_nums.push(res.data.num);
     getTotal().textContent = parseFloat(total.textContent) + getPrice(res, isReturn);
 };
 
@@ -99,6 +99,7 @@ transactionBtn.addEventListener('click', e => {
     if (errorMessages.children.length > 0) errorMessages.removeChild(errorMessages.children[0]);
     axios.get('/transactions/' + transactionInput.value)
         .then(res => {
+            console.log(res.data);
             returnBtn.removeAttribute('data-bs-toggle');
             // If there is already a span, remove it
             const parent = transactionBtn.parentElement; 
@@ -131,7 +132,7 @@ resetBtn.addEventListener('click', e => {
 methodBtn.addEventListener('click', e => {
     e.preventDefault();
     if (errorMessages.children.length > 0) errorMessages.removeChild(errorMessages.children[0]);
-    axios.post('http://localhost:3000/transactions', { productNums })
+    axios.post('http://localhost:3000/transactions', { product_nums, trans_num })
         .then(() => {
             const modal = new bootstrap.Modal(document.querySelector('#checkout-modal'));
             modal.hide();
