@@ -3,13 +3,14 @@ DROP VIEW IF EXISTS tp_view;
 CREATE VIEW tp_view AS
 SELECT
     tp.trans_num,
-    tp.last_trans_num,
     transactions.employee_num,
+    tp.last_trans_num,
     last_transactions.employee_num AS last_employee_num,
     DATE_FORMAT(transactions.date, '%d-%m-%Y') AS date,
     COALESCE(amount_bought, 0) AS amount_bought,
     COALESCE(amount_returned, 0) AS amount_returned,
-    COALESCE(amount_bought, 0) - COALESCE(amount_returned, 0) AS total
+    COALESCE(amount_bought, 0) - COALESCE(amount_returned, 0) AS total,
+    COUNT(product_num) AS units
 FROM tp
     LEFT JOIN transactions ON transactions.num = tp.trans_num
     LEFT JOIN products ON products.num = tp.product_num
