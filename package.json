@@ -1,7 +1,7 @@
 {
-  "name": "hbc",
+  "name": "pos",
   "version": "1.0.0",
-  "description": "HBC",
+  "description": "Point of Sales",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
