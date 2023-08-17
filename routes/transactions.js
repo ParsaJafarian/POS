@@ -17,7 +17,7 @@ router.get('/new', isLoggedIn, (req, res) => {
     res.render('new_transaction', { messages: req.flash('error') });
 });
 
-router.get('/:num', catchAsync(async (req, res) => {
+router.get('/:num', catchAsync(async (req, res, next) => {
     const q = 'SELECT * FROM transactions WHERE num = ?';
     const result = await db.query(q, [req.params.num]);
     const transaction = result[0][0];
@@ -25,7 +25,23 @@ router.get('/:num', catchAsync(async (req, res) => {
     res.send(transaction);
 }));
 
-router.post('/', catchAsync(async (req, res) => {
+router.get('/:num/products', catchAsync(async (req, res, next) => {
+    const q = `SELECT
+                num,
+                price,
+                is_available,
+                type,
+                size,
+                brand
+            FROM tp
+                JOIN products ON products.num = tp.product_num
+            WHERE trans_num = ?`;
+    const result = await db.query(q, [req.params.num]);
+    const products = result[0];
+    res.render('units', { products, trans_num: req.params.num});
+}));
+
+router.post('/', catchAsync(async (req, res, next) => {
     if (!req.user) throw new ExpressError('User not authenticated', 401);
     await completeTransaction(req.user.num, req.body.trans_num, req.body.product_nums);
     console.log('Transaction completed');
