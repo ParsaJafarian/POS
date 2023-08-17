@@ -132,7 +132,7 @@ resetBtn.addEventListener('click', e => {
 methodBtn.addEventListener('click', e => {
     e.preventDefault();
     if (errorMessages.children.length > 0) errorMessages.removeChild(errorMessages.children[0]);
-    axios.post('http://localhost:3000/transactions', { product_nums, trans_num })
+    axios.post('/transactions', { product_nums, trans_num })
         .then(() => {
             const modal = new bootstrap.Modal(document.querySelector('#checkout-modal'));
             modal.hide();
