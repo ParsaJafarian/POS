@@ -2,16 +2,17 @@
 
     <h1>Transactions</h1>
 
-    <table id="transactions" class="table table-striped" >
+    <table id="transactions" class="table table-striped">
         <thead>
             <tr>
                 <th>trans-num</th>
                 <th>e-num</th>
-                <th>last-trans-num</th>
-                <th>last-e-num</th>
+                <th>Last trans-num</th>
+                <th>Last e-num</th>
                 <th>Date</th>
-                <th>Bought($)</th>
-                <th>Returned($)</th>
+                <th>Units</th>
+                <th>Sales($)</th>
+                <th>Returns($)</th>
                 <th>Total($)</th>
             </tr>
         </thead>
@@ -32,6 +33,11 @@
                     </td>
                     <td>
                         <%= transaction.date %>
+                    </td>
+                    <td>
+                        <a href="<%= `/transactions/${transaction.trans_num}/products` %>">
+                            <%= transaction.units %>
+                        </a>
                     </td>
                     <td>
                         <%= transaction.amount_bought %>

@@ -1,0 +1,49 @@
+<% layout('./layouts/boilerplate') %>
+
+    <h1>Products of Transaction #<%= trans_num %></h1>
+
+    <table id="products" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Product Number</th>
+                <th>Price($)</th>
+                <th>Is available</th>
+                <th>Type</th>
+                <th>Size</th>
+                <th>Brand</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% products.forEach((product)=> { %>
+                <tr>
+                    <td>
+                        <%= product.num %>
+                    </td>
+                    <td>
+                        <%= product.price %>
+                    </td>
+                    <td>
+                        <%= product.is_available %>
+                    </td>
+                    <td>
+                        <%= product.type %>
+                    </td>
+                    <td>
+                        <%= product.size %>
+                    </td>
+                    <td>
+                        <%= product.brand %>
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        (function () {
+            new DataTable('#products');
+        })();
+    </script>
