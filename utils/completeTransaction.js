@@ -34,9 +34,7 @@ const completeTransaction = async (employee_num, last_trans_num, product_nums) =
     await addTransaction(employee_num);
     const trans_num = await getTransNum();
     await updateProducts(trans_num, product_nums);
-    console.log('updated products');
     await addTransactionProducts(trans_num, last_trans_num, product_nums);
-    console.log('added transaction products');
 };
 
 module.exports = completeTransaction;

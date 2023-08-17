@@ -19,6 +19,6 @@ router.post('/', catchAsync(async (req, res, next) => {
 router.use((err, req, res, next) => {
     req.flash('error', err.message);
     res.redirect('/register');
-})
+});
 
 module.exports = router;

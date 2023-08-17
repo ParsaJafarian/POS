@@ -1,5 +1,9 @@
-GET http://localhost:3000/products/return/10000500
+POST http://localhost:3000/transactions
+Content-Type: application/json
 
-###
-
-GET http://localhost:3000/products/return/10000501
+{
+  "productNums": [
+    10000000,
+    10000001
+  ]
+}
