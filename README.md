@@ -1,5 +1,5 @@
 # POS
-POS is a point of sales system for small clothing businesses. It is a web application that allows users to create and manage products, customers, and orders. It also allows users to view reports on sales and inventory.
+POS is a point of sales system for small clothing businesses. It is a web application that allows users to create and manage products, customers, and orders. It also allows users to view reports on sales and inventory. For more information regarding the end user's view of the application, please watch this video: https://www.youtube.com/watch?v=g0eF8T9rfFY&t=19s. 
 
 ## Installation
 1. Clone the repository
